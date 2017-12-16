@@ -68,7 +68,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'OnionHarvester-Server.wsgi.application'
+WSGI_APPLICATION = 'OnionHarvesterServer.wsgi.application'
 
 
 # Database

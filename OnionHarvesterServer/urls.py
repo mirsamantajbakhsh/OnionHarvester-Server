@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 
-from OnionHarvester-Server import views
+from OnionHarvesterServer import views
 
 urlpatterns = [
     path('', views.index, name='index'),

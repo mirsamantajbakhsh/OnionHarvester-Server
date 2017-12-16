@@ -6,7 +6,7 @@ from django.template import loader
 
 
 def index(request):
-    return HttpResponse("Hello, world. You're here.")
+    return render(request, 'pool/index.html')
 
 
 def generate(request):

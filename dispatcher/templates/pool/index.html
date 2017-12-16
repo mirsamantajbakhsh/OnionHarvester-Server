@@ -1,2 +1,72 @@
-{% extends 'partial/master.html' %}
-{% block body %} test, ['aaaaaaaaaaaaaaaa','aaaaaaaaaaaaaae7','1200'] {{  test }} {% endblock %}
+{% extends 'pool/partial/master.html' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="font-weight-bold text-info mt-5 mb-2">Top 100 submitted address ranges:</div>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th><i class="fa fa-id-badge"></i> Client ID</th>
+                            <th><i class="fa fa-play-circle-o"></i> Start address range</th>
+                            <th><i class="fa fa-stop-circle-o"></i> End address range</th>
+                            <th><i class="fa fa-hourglass-half"></i> Timeout</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>234jdsbksdf</td>
+                            <td>aaaaa23432</td>
+                            <td>aaaaa23424</td>
+                            <td>00:20:15</td>
+                        </tr>
+                        <tr>
+                            <td>234jdswebksdf</td>
+                            <td>aaaddd23432</td>
+                            <td>aaawww23424</td>
+                            <td>00:40:15</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-md-4">
+                <div class="col-md-12 mt-5">
+                    <div class="card">
+                        <div class="card-header text-info">
+                            <i class="fa fa-id-badge"></i> # of clients
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                21334234
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-header text-info">
+                            <i class="fa fa-barcode"></i> # of scanned address ranges
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                23424
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-header text-info">
+                            <i class="fa fa-check"></i> # of valid addresses
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text">
+                                23424
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
