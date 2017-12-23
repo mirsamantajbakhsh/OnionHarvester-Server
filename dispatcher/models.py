@@ -5,7 +5,7 @@ class Pool(models.Model):
     client_id = models.CharField(max_length=32)
     address_range_start = models.CharField(max_length=16)
     address_range_end = models.CharField(max_length=16)
-    end_time = models.DateTimeField()
+    dis_time = models.DateTimeField()
 
 
 class Response(models.Model):

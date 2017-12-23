@@ -2,6 +2,16 @@ body {
     padding-top: 54px;
 }
 
+#about{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+#contact{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
 @media (min-width: 992px) {
     body {
         padding-top: 56px;

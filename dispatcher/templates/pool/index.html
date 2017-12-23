@@ -3,40 +3,38 @@
     <div class="container">
         <div class="row">
             <div class="col-md-8">
-                <div class="font-weight-bold text-info mt-5 mb-2">Top 100 submitted address ranges:</div>
-                <table class="table table-striped">
+                <div class="font-weight-bold mt-5 mb-2">Top 50 submitted address ranges</div>
+                <table class="table table-striped font-weight-light">
                     <thead>
                         <tr>
-                            <th><i class="fa fa-id-badge"></i> Client ID</th>
-                            <th><i class="fa fa-play-circle-o"></i> Start address range</th>
-                            <th><i class="fa fa-stop-circle-o"></i> End address range</th>
-                            <th><i class="fa fa-hourglass-half"></i> Timeout</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-id-badge"></i> Client ID</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-play-circle-o"></i> Start address range</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-stop-circle-o"></i> End address range</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Timeout</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td>234jdsbksdf</td>
-                            <td>aaaaa23432</td>
-                            <td>aaaaa23424</td>
-                            <td>00:20:15</td>
+                        {% for pool in pools %}
+                        <tr style="color: {{ pool.color }}">
+                            <td>{{ pool.client_id }}</td>
+                            <td>{{ pool.address_range_start }}</td>
+                            <td>{{ pool.address_range_end }}</td>
+                            <td>
+                                {{ pool.dis_time }}
+                            </td>
                         </tr>
-                        <tr>
-                            <td>234jdswebksdf</td>
-                            <td>aaaddd23432</td>
-                            <td>aaawww23424</td>
-                            <td>00:40:15</td>
-                        </tr>
+                        {% endfor %}
                     </tbody>
                 </table>
             </div>
             <div class="col-md-4">
                 <div class="col-md-12 mt-5">
                     <div class="card">
-                        <div class="card-header text-info">
+                        <div class="card-header text-info font-weight-light">
                             <i class="fa fa-id-badge"></i> # of clients
                         </div>
                         <div class="card-body">
-                            <div class="card-text">
+                            <div class="card-text font-weight-light">
                                 21334234
                             </div>
                         </div>
@@ -44,11 +42,11 @@
                 </div>
                 <div class="col-md-12 mt-3">
                     <div class="card">
-                        <div class="card-header text-info">
+                        <div class="card-header text-info font-weight-light">
                             <i class="fa fa-barcode"></i> # of scanned address ranges
                         </div>
                         <div class="card-body">
-                            <div class="card-text">
+                            <div class="card-text font-weight-light">
                                 23424
                             </div>
                         </div>
@@ -56,16 +54,34 @@
                 </div>
                 <div class="col-md-12 mt-3">
                     <div class="card">
-                        <div class="card-header text-info">
+                        <div class="card-header text-info font-weight-light">
                             <i class="fa fa-check"></i> # of valid addresses
                         </div>
                         <div class="card-body">
-                            <div class="card-text">
+                            <div class="card-text font-weight-light">
                                 23424
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
+        </div>
+        <div id="about" class="row mt-5">
+            <div class="col-md-12 font-weight-bold clear">About</div>
+            <div class="col-md-12">
+                <p class="section-text font-weight-light">
+                    A small TOR Onion Address harvester for checking if the address is available or not. The program uses the TOR local socks5 proxy for finding all the Onion Addresses which are alive and ports 80 and 443 are available. Details about the project and TOR onion harvesting is published in my personal blog at: Onion Harvester
+                </p>
+            </div>
+        </div>
+        <div id="contact" class="row mt-3">
+            <div class="col-md-12 font-weight-bold">Contact</div>
+            <div class="col-md-12">
+                <p class="section-text font-weight-light">
+                    @mirsamantajbakhsh: <a href="#">link</a>
+                    <br>
+                    @mohammadnassiri: <a href="#">link</a>
+                </p>
             </div>
         </div>
     </div>
