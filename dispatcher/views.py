@@ -34,9 +34,8 @@ def index(request):
 def generate(request):
     ports = ['80', '443']
     last_address = 'aaaaaaaaaaaaaaaa'
-    # It will be 150 domains for ports 80 and 443.
-    # It will take about 15 minutes to complete so we give clients 30 minutes
-    range_limit = 150
+    # 128 addresses in range
+    range_limit = 128
     # In minutes
     timeout = 30
     last_range = Pool.objects.order_by('-id')[0]
@@ -58,16 +57,25 @@ def generate(request):
     return HttpResponse(json.dumps(params), content_type="application/json")
 
 
-def domain_generator(last_domain, range_limit):
-    chars = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+def domain_generator(last_domain):
+    chars_list = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
              'v', 'w', 'x', 'y', 'z', '2', '3', '4', '5', '6', '7']
-    #for x in generate_domains(chars):
-    print(generate_domains(chars))
-    params = {
-        'start': '',
-        'end': ''
-    }
-    return params
+    chars = list(last_domain)
+    for i, e in reversed(list(enumerate(chars))):
+        if e == '7':
+            chars[i] = 'a'
+        else:
+            index = i
+            char_index = chars_list.index(e)
+            break
+    next_multi_pre_start_char = char_index + 1
+    chars[index] = chars_list[next_multi_pre_start_char]
+    end_chars = chars
+    print(''.join(chars))
+    next_pre_end_char = chars_list.index(chars[14]) + 3
+    end_chars[14] = chars_list[next_pre_end_char]
+    end_chars[15] = '7'
+    print(''.join(end_chars))
 
 
 def get_timed_out(timeout):
@@ -75,9 +83,3 @@ def get_timed_out(timeout):
     result = Pool.objects.filter(dis_time__lt=time_threshold)[0]
     return result
 
-
-def generate_domains(chars):
-    chars = ''.join([str(x) for x in chars])
-    return chars
-    #for x in itertools.product(chars, repeat=16):
-     #   yield 'http://' + ''.join([str(y) for y in x]) + '.onion'
