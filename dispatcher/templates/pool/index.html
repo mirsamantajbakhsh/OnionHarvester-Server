@@ -1,8 +1,8 @@
-{% extends 'pool/partial/master.html' %}
+{% extends 'partial/master.html' %}
 {% block body %}
     <div class="container">
         <div class="row">
-            <div class="col-md-8">
+            <div class="col-md-9">
                 <div class="font-weight-bold mt-5 mb-2">Top 50 submitted address ranges</div>
                 <table class="table table-striped font-weight-light">
                     <thead>
@@ -27,15 +27,15 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-3">
                 <div class="col-md-12 mt-5">
                     <div class="card">
                         <div class="card-header text-info font-weight-light">
-                            <i class="fa fa-id-badge"></i> # of clients
+                            <i class="fa fa-id-badge"></i> # of online clients
                         </div>
                         <div class="card-body">
                             <div class="card-text font-weight-light">
-                                21334234
+                                {{ clients }}
                             </div>
                         </div>
                     </div>
@@ -43,11 +43,11 @@
                 <div class="col-md-12 mt-3">
                     <div class="card">
                         <div class="card-header text-info font-weight-light">
-                            <i class="fa fa-barcode"></i> # of scanned address ranges
+                            <i class="fa fa-barcode"></i> # of scanning ranges
                         </div>
                         <div class="card-body">
                             <div class="card-text font-weight-light">
-                                23424
+                                {{ address_ranges }}
                             </div>
                         </div>
                     </div>
@@ -59,7 +59,7 @@
                         </div>
                         <div class="card-body">
                             <div class="card-text font-weight-light">
-                                23424
+                                {{ valid_addresses }}
                             </div>
                         </div>
                     </div>

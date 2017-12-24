@@ -12,6 +12,12 @@ body {
     padding: 10px;
 }
 
+.fa {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    text-indent: -10px;
+}
+
 @media (min-width: 992px) {
     body {
         padding-top: 56px;

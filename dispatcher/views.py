@@ -2,9 +2,12 @@ import datetime
 
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.http import HttpResponse
 import uuid
+
+from django.views.decorators.csrf import csrf_exempt
 
 from dispatcher.models import Pool, Response
 
@@ -25,11 +28,24 @@ def index(request):
             p.failed = True
             p.color = 'red'
             p.dis_time = "%s days, %02d:%02d:%02d" % (p.days, p.hours, p.minutes, p.seconds)
-
+    statistics = __get_statistics(30, 128)
     context = {
         'pools': pools,
+        'clients': statistics['clients'],
+        'address_ranges': statistics['address_ranges'],
+        'valid_addresses': statistics['valid_addresses']
     }
     return render(request, 'pool/index.html', context)
+
+
+def __get_statistics(timeout, range_limit):
+    time_threshold = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(minutes=timeout)
+    params = {
+        'clients': Pool.objects.filter(dis_time__gt=time_threshold).count(),
+        'address_ranges': Pool.objects.count() * range_limit,
+        'valid_addresses': Response.objects.count()
+    }
+    return params
 
 
 def generate(request):
@@ -65,10 +81,10 @@ def generate(request):
     try:
         Pool.objects.update_or_create(client_id=params['id'], defaults={"address_range_start": params['start'],
                                       "address_range_end": params['end'], "dis_time": this_dis_time})
-        result = json.dumps(params)
+        this_result = json.dumps(params)
     except Exception as e:
-        result = "Some thing is wrong! Please try again later. Error:" + e.__str__()
-    return HttpResponse(result, content_type="application/json")
+        this_result = "Some thing is wrong! Please try again later. Error: " + e.__str__()
+    return HttpResponse(this_result, content_type="application/json")
 
 
 def __address_generator(last_address, range_limit):
@@ -98,22 +114,31 @@ def __next_address_generator(last_address):
 
 def __get_timed_out(timeout):
     time_threshold = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(minutes=timeout)
-    result = Pool.objects.filter(dis_time__lt=time_threshold)
-    return result
+    this_result = Pool.objects.filter(dis_time__lt=time_threshold)
+    return this_result
 
 
+@csrf_exempt
 def response(request):
-    this_client_id = request.POST['id']
-    addresses = json.JSONDecoder(request.POST['addresses'])
-    old_pool = Pool.objects.get(client_id=this_client_id)
-    if old_pool:
-        for x in addresses:
-            try:
-                Response.objects.create(x['address'], x['port'], x['time'])
-                result = "Thanks for contribution."
-            except Exception as e:
-                result = "Some thing is wrong! Please try again later. Error:" + e.__str__()
-        old_pool.delete()
+    if not request.POST.get('id', False) or not request.POST.get('addresses', False):
+        this_result = "Please give some help in harvesting addresses."
     else:
-        result = "Some thing is wrong! Please try again later."
-    return HttpResponse(result, content_type="application/json")
+        this_client_id = request.POST['id']
+        addresses = json.loads(request.POST['addresses'])
+        try:
+            old_pool = Pool.objects.get(client_id=this_client_id)
+            for x in addresses:
+                Response.objects.create(address=x[0], port=x[1], check_time=x[2])
+                this_result = "Thanks for contribution."
+            old_pool.delete()
+        except Exception as e:
+            this_result = "Some thing is wrong! Please try again later. Error: " + e.__str__()
+    return HttpResponse(this_result, content_type="application/json")
+
+
+def result(request):
+    responses = Response.objects.order_by('-id')[:15]
+    context = {
+        'responses': responses,
+    }
+    return render(request, 'response/index.html', context)
