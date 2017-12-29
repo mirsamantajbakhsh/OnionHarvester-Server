@@ -1,19 +1,16 @@
 import datetime
-
 import json
-
-from django.contrib.auth.decorators import login_required
+import uuid
 from django.shortcuts import render
 from django.http import HttpResponse
-import uuid
-
 from django.views.decorators.csrf import csrf_exempt
-
 from dispatcher.models import Pool, Response
+from decouple import config
 
 
 def index(request):
-    timeout = 30
+    timeout = config('TIMEOUT', cast=int)
+    range_limit = config('RANGE_LIMIT', cast=int)
     pools = Pool.objects.order_by('-id')[:50]
     for p in pools:
         dt = datetime.datetime.now(datetime.timezone.utc) - p.dis_time
@@ -27,13 +24,14 @@ def index(request):
         if p.days > 0 or p.hours > 0 or p.minutes > timeout:
             p.failed = True
             p.color = 'red'
-            p.dis_time = "%s days, %02d:%02d:%02d" % (p.days, p.hours, p.minutes, p.seconds)
-    statistics = __get_statistics(30, 128)
+            p.dis_time = "-"
+    statistics = __get_statistics(timeout, range_limit)
     context = {
         'pools': pools,
         'clients': statistics['clients'],
         'address_ranges': statistics['address_ranges'],
-        'valid_addresses': statistics['valid_addresses']
+        'valid_addresses': statistics['valid_addresses'],
+        'timeout': timeout
     }
     return render(request, 'pool/index.html', context)
 
@@ -50,12 +48,12 @@ def __get_statistics(timeout, range_limit):
 
 def generate(request):
     client_id = uuid.uuid4().hex
-    ports = ['80', '443']
+    ports = config('PORTS', cast=lambda v: [s.strip() for s in v.split(',')])
     last_address = '7777777777777777'
-    # 128 addresses in range
-    range_limit = 128
+    # number of addresses in range
+    range_limit = config("RANGE_LIMIT", cast=int)
     # In minutes
-    timeout = 30
+    timeout = config('TIMEOUT', cast=int)
     this_dis_time = datetime.datetime.now(datetime.timezone.utc)
     last_range = Pool.objects.order_by('-id')
     if not last_range:

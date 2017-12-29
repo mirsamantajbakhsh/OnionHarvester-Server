@@ -15,17 +15,16 @@
                     </thead>
                     <tbody>
                         {% for pool in pools %}
-                        <tr style="color: {{ pool.color }}">
+                        <tr style="color: {{ pool.color }}" class="pool">
                             <td>{{ pool.client_id }}</td>
                             <td>{{ pool.address_range_start }}</td>
                             <td>{{ pool.address_range_end }}</td>
-                            <td>
-                                {{ pool.dis_time }}
-                            </td>
+                            <td class="timeout">{{ pool.dis_time }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
                 </table>
+                <div id="timeout" class="text-info font-weight-light">Timeout is: {{ timeout }} minutes</div>
             </div>
             <div class="col-md-3">
                 <div class="col-md-12 mt-5">
