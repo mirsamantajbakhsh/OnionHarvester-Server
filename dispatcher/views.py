@@ -21,7 +21,7 @@ def index(request):
         p.failed = False
         p.color = 'black'
         p.dis_time = "%02d:%02d" % (p.minutes, p.seconds)
-        if p.days > 0 or p.hours > 0 or p.minutes > timeout:
+        if p.days > 0 or p.hours > 0 or p.minutes >= timeout:
             p.failed = True
             p.color = 'red'
             p.dis_time = "-"

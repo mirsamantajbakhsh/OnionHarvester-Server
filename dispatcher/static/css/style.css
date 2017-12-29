@@ -18,6 +18,19 @@ body {
     text-indent: -10px;
 }
 
+.section-text{
+    line-height: 28px
+}
+
+.footer{
+    clear: both;
+    background-color: #efefef;
+    padding: 3px 5px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 11px;
+}
+
 @media (min-width: 992px) {
     body {
         padding-top: 56px;
