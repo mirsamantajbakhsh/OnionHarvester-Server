@@ -126,7 +126,8 @@ def response(request):
         try:
             old_pool = Pool.objects.get(client_id=this_client_id)
             for x in addresses:
-                Response.objects.create(address=x[0], port=x[1], check_time=x[2])
+                this_time = datetime.datetime.now(datetime.timezone.utc)
+                Response.objects.create(address=x[0], port=x[1], check_time=x[2], time=this_time)
                 this_result = "Thanks for contribution."
             old_pool.delete()
         except Exception as e:

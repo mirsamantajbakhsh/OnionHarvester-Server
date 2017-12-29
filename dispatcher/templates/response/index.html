@@ -7,9 +7,10 @@
                 <table class="table table-striped font-weight-light">
                     <thead>
                         <tr>
-                            <th class="text-info font-weight-light"><i class="fa fa-play-address-card-o"></i> Address</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-address-card-o"></i> Address</th>
                             <th class="text-info font-weight-light"><i class="fa fa-circle-o"></i> Port</th>
-                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Time</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Client Time</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Server Time</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -18,6 +19,7 @@
                             <td>{{ response.address }}</td>
                             <td>{{ response.port }}</td>
                             <td>{{ response.check_time }}</td>
+                            <td>{{ response.time }}</td>
                         </tr>
                         {% endfor %}
                     </tbody>

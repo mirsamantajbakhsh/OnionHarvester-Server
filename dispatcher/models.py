@@ -12,4 +12,5 @@ class Response(models.Model):
     address = models.CharField(max_length=16)
     port = models.IntegerField()
     check_time = models.DateTimeField()
+    time = models.DateTimeField()
 
