@@ -141,15 +141,3 @@ def result(request):
         'responses': responses,
     }
     return render(request, "response/index.html", context)
-
-
-def about(request):
-    return render(request, "pages/about.html")
-
-
-def contact(request):
-    return render(request, "pages/contact.html")
-
-
-def donate(request):
-    return render(request, "pages/donate.html")
