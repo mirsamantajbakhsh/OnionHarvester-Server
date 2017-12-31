@@ -51,7 +51,22 @@ The server has been written on Django framework and you can run below commands t
 git clone https://github.com/mohammadnassiri/OnionHarvester-Server.git
 cd OnionHarvester-Server
 pip3 install -r requirements.txt
+python3 manage.py collectstatic
 ```
+
+## Config
+There is a ```.env ``` file contains configuration for server to be run. You can set debug mode, secret key, allowed hosts, database configurations and constants.  
+For generate new secret key, you can use this oneliner code:  
+```
+python3 -c "import string,random; uni=string.ascii_letters+string.digits+string.punctuation; print(repr(''.join([random.SystemRandom().choice(uni) for i in range(random.randint(45,50))])))"
+```
+
+In constant section you have these options:  
+ - TIMEOUT: The time that each client must response before end.
+ - RANGE_LIMIT: The range of Onion addresses that each client got in each request.
+ - PORTS: The ports that each client scans it on each Onion address
+ 
+ Please be noticed that each address can have about 3 seconds of scan time so for 2 ports it will be about 6 seconds, so you must give timeout a logical number related to range limit and ports config.
 
 # Project
 This project has been run on a server and you can use it now by see: [onionharvester.com](http://onionharvester.com)
