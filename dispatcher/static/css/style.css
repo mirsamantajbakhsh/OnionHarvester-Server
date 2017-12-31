@@ -12,10 +12,15 @@ body {
     padding: 10px;
 }
 
-.fa {
+.fa{
+    margin-right: 5px;
+}
+
+table .fa {
     font-size: 14px !important;
     font-weight: normal !important;
-    text-indent: -10px;
+    text-indent: -13px;
+    margin-right: 0px;
 }
 
 .text-image img{
@@ -33,6 +38,11 @@ body {
 
 .text-image{
     display: inline-block;
+}
+
+.fa-github{
+    font-size: 20px !important;
+    text-indent: 0;
 }
 
 @media (min-width: 992px) {
