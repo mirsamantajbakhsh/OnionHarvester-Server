@@ -1,5 +1,45 @@
 {% load static %}
-
+<div class="container">
+    <div id="about" class="row mt-5">
+        <div class="col-md-12 font-weight-bold clear">About</div>
+        <div class="col-md-12">
+            <p class="section-text font-weight-light">
+                The server for generating search options for OnionHarvester's project explained <a href="https://github.com/mirsamantajbakhsh/OnionHarvester" target="_blank">here</a>.
+                <br/>
+                Clients that connect to this server will get start and end onion address, scanning ports and timeout.
+                <br/>
+                Then they will check all addresses in the provided range for specific ports on TOR network
+                and will return search results in a json format including valid onion addresses, their ports and time of scan.
+                <br/>
+                The server can show online searches and top 15 results got from clients that you can
+                see them on the Results tab.
+            </p>
+        </div>
+    </div>
+    <div id="contact" class="row mt-3">
+        <div class="col-md-12 font-weight-bold">Contact</div>
+        <div class="col-md-12">
+            <p class="section-text font-weight-light">
+                OnionHarvester programmer: <a href="https://github.com/mirsamantajbakhsh" target="_blank">@mirsamantajbakhsh</a>
+                <br>
+                OnionHarvester-Server programmer: <a href="https://github.com/mohammadnassiri" target="_blank">@mohammadnassiri</a>
+            </p>
+        </div>
+    </div>
+    <div id="contact" class="row mt-3">
+        <div class="col-md-12 font-weight-bold">Donate</div>
+        <div class="col-md-12">
+            <div class="row mt-3">
+                <div class="col-md-2 text-image">
+                    <img src="{% static 'images/bitcoin.png' %}" title="bitcoin" alt="bitcoin">
+                </div>
+                <div class="col-md-10 section-text font-weight-light">
+                    14CGyrFdV1tuWqrp78FuHmhk9uXFgha6RJ
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="footer center">OnionHarvester-Server @ 2017</div>
 
 <!-- Bootstrap core JavaScript -->

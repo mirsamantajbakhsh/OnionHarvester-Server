@@ -18,8 +18,8 @@ body {
     text-indent: -10px;
 }
 
-.section-text{
-    line-height: 28px
+.text-image img{
+    width: 100%;
 }
 
 .footer{
@@ -29,6 +29,10 @@ body {
     margin-top: 50px;
     text-align: center;
     font-size: 11px;
+}
+
+.text-image{
+    display: inline-block;
 }
 
 @media (min-width: 992px) {

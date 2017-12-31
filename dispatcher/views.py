@@ -33,7 +33,7 @@ def index(request):
         'valid_addresses': statistics['valid_addresses'],
         'timeout': timeout
     }
-    return render(request, 'pool/index.html', context)
+    return render(request, "pool/index.html", context)
 
 
 def __get_statistics(timeout, range_limit):
@@ -140,4 +140,16 @@ def result(request):
     context = {
         'responses': responses,
     }
-    return render(request, 'response/index.html', context)
+    return render(request, "response/index.html", context)
+
+
+def about(request):
+    return render(request, "pages/about.html")
+
+
+def contact(request):
+    return render(request, "pages/contact.html")
+
+
+def donate(request):
+    return render(request, "pages/donate.html")

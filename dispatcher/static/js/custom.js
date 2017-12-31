@@ -14,6 +14,11 @@ function countUp(){
         if(minute >29){
             records.item(i).getElementsByClassName('timeout')[0].innerHTML = "-";
             records.item(i).style.color = "red";
+            var count = document.getElementsByClassName('clients-count')[0].innerHTML;
+            if(parseInt(count) > 0){
+                count --;
+                document.getElementsByClassName('clients-count')[0].innerHTML = count;
+            }
         }
     }
 }
