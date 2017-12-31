@@ -50,7 +50,7 @@ The server has been written on Django framework and you can run below commands t
 ```
 git clone https://github.com/mohammadnassiri/OnionHarvester-Server.git
 cd OnionHarvester-Server
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
 
 # Project
