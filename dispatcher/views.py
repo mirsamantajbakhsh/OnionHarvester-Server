@@ -1,6 +1,7 @@
 import datetime
 import json
 import uuid
+
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -56,6 +57,7 @@ def generate(request):
     timeout = config('TIMEOUT', cast=int)
     this_dis_time = datetime.datetime.now(datetime.timezone.utc)
     last_range = Pool.objects.order_by('-id')
+    timed_out_range_id = None
     if not last_range:
         address_range = __address_generator(last_address, range_limit)
     else:
@@ -65,7 +67,8 @@ def generate(request):
                 'start': timed_out_range[0].address_range_start,
                 'end': timed_out_range[0].address_range_end
             }
-            client_id = timed_out_range[0].client_id
+            timed_out_range_id = timed_out_range[0].id
+            # client_id = timed_out_range[0].client_id
         else:
             last_address = last_range[0].address_range_end
             address_range = __address_generator(last_address, range_limit)
@@ -77,7 +80,7 @@ def generate(request):
         'timeout': timeout * 1000
     }
     try:
-        Pool.objects.update_or_create(client_id=params['id'], defaults={"address_range_start": params['start'],
+        Pool.objects.update_or_create(id=timed_out_range_id, defaults={"client_id": params['id'], "address_range_start": params['start'],
                                       "address_range_end": params['end'], "dis_time": this_dis_time})
         this_result = json.dumps(params)
     except Exception as e:
@@ -118,18 +121,22 @@ def __get_timed_out(timeout):
 
 @csrf_exempt
 def response(request):
-    if not request.POST.get('id', False) or not request.POST.get('addresses', False):
-        this_result = "Please give some help in harvesting addresses."
+    if not request.POST.get('id', False):
+        this_result = "Please give some parameters."
     else:
         this_client_id = request.POST['id']
-        addresses = json.loads(request.POST['addresses'])
+        addresses = []
+        if request.POST.get('addresses', False):
+            addresses = json.loads(request.POST['addresses'])
+        complete = request.POST.get('complete', False)
         try:
             old_pool = Pool.objects.get(client_id=this_client_id)
             for x in addresses:
                 this_time = datetime.datetime.now(datetime.timezone.utc)
                 Response.objects.create(address=x[0], port=x[1], check_time=x[2], time=this_time)
-                this_result = "Thanks for contribution."
-            old_pool.delete()
+            if complete == "true":
+                old_pool.delete()
+            this_result = "Thanks for contribution."
         except Exception as e:
             this_result = "Some thing is wrong! Please try again later. Error: " + e.__str__()
     return HttpResponse(this_result, content_type="application/json")
