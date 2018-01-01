@@ -27,12 +27,13 @@ For example:
 ```
 ## Response
 Clients after harvesting the range of addresses, can send results to the server as a JSON http post request.
-It must be a HTTP post request with two parameter:  
+It must be a HTTP post request with these parameters:  
 - id
 - addresses
+- complete
 
-The id is an unique id that client got in request section and addresses is JSON format of valid Onion addresses.  
-The addresses parameter should be an array of addresses, ports and scanned times like:
+The id is a unique id that client received in request section and addresses is JSON format of valid Onion addresses. The complete parameter is used when the client has searched incompletely, so we will accept the response but that range will be kept for search again so it should have ```true``` or ```false``` value.  
+The addresses parameter should be an array of addresses, ports and scanned times like below. If scan hasn't any result so do'nt send addresses parameter:
 ```
 [["address 1", port number, "date time (format: YYYY-MM-DD HH:MM)"], ["address 2", port number, "date time (format: YYYY-MM-DD HH:MM)"]]
 ```
@@ -44,6 +45,10 @@ d42ae54b9b3845b48868cde7a0ccd5bc
 Post ```addresses``` parameter:
 ```
 [["facebookcorewwwi", 80, "1991-06-22 22:22"], ["facebookcorewwwi", 443, "1991-06-22 22:22"]]
+```
+Post ```complete``` parameter:
+```
+true
 ```
 ## Install
 The server has been written on Django framework and you can run below commands to install requirements:
