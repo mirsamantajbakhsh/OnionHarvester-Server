@@ -26,7 +26,7 @@ For example:
 {"id": "d42ae54b9b3845b48868cde7a0ccd5bc", "start": "aaaaaaaaaaaaabea", "end": "aaaaaaaaaaaaabib", "ports": ["80", "443"], "timeout": 30000}
 ```
 ## Response
-Clients after harvesting the range of addresses, can send results to the server as a JSON http post request.
+Clients after harvesting the range of addresses, can send results to ```http(s)://server/dispatcher/response``` as a JSON http post request.
 It must be a HTTP post request with these parameters:  
 - id
 - addresses
