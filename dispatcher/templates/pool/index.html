@@ -1,0 +1,69 @@
+{% extends 'partial/master.html' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="font-weight-bold mt-5 mb-2">Top 50 submitted address ranges</div>
+                <table class="table table-striped font-weight-light">
+                    <thead>
+                        <tr>
+                            <th class="text-info font-weight-light"><i class="fa fa-id-badge"></i> Client ID</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-play-circle-o"></i> Start address range</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-stop-circle-o"></i> End address range</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Timeout</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for pool in pools %}
+                        <tr style="color: {{ pool.color }}" class="pool">
+                            <td>{{ pool.client_id }}</td>
+                            <td>{{ pool.address_range_start }}</td>
+                            <td>{{ pool.address_range_end }}</td>
+                            <td class="timeout">{{ pool.dis_time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+                <div id="timeout" class="text-info font-weight-light">Timeout is: {{ timeout }} minutes</div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-md-12 mt-5">
+                    <div class="card">
+                        <div class="card-header text-info font-weight-light">
+                            <i class="fa fa-id-badge"></i> # of online clients
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text font-weight-light clients-count">
+                                {{ clients }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-header text-info font-weight-light">
+                            <i class="fa fa-barcode"></i> # of scanning ranges
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text font-weight-light">
+                                {{ address_ranges }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12 mt-3">
+                    <div class="card">
+                        <div class="card-header text-info font-weight-light">
+                            <i class="fa fa-check"></i> # of valid addresses
+                        </div>
+                        <div class="card-body">
+                            <div class="card-text font-weight-light">
+                                {{ valid_addresses }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

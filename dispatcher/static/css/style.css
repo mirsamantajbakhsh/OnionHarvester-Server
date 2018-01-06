@@ -1,0 +1,57 @@
+body {
+    padding-top: 54px;
+}
+
+#about{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+#contribution{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+#contact{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
+.fa{
+    margin-right: 5px;
+}
+
+table .fa {
+    font-size: 14px !important;
+    font-weight: normal !important;
+    text-indent: -13px;
+    margin-right: 0px;
+}
+
+.text-image img{
+    width: 100%;
+}
+
+.footer{
+    clear: both;
+    background-color: #efefef;
+    padding: 3px 5px;
+    margin-top: 50px;
+    text-align: center;
+    font-size: 11px;
+}
+
+.text-image{
+    display: inline-block;
+}
+
+.fa-github{
+    font-size: 20px !important;
+    text-indent: 0;
+}
+
+@media (min-width: 992px) {
+    body {
+        padding-top: 56px;
+    }
+}

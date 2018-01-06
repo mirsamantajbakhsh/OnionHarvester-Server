@@ -1,0 +1,30 @@
+{% extends 'partial/master.html' %}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="font-weight-bold mt-5 mb-2">Top 15 harvesting results</div>
+                <table class="table table-striped font-weight-light">
+                    <thead>
+                        <tr>
+                            <th class="text-info font-weight-light"><i class="fa fa-address-card-o"></i> Address</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-circle-o"></i> Port</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Client Time</th>
+                            <th class="text-info font-weight-light"><i class="fa fa-hourglass-half"></i> Server Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for response in responses %}
+                        <tr>
+                            <td>{{ response.address }}</td>
+                            <td>{{ response.port }}</td>
+                            <td>{{ response.check_time }}</td>
+                            <td>{{ response.time }}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}
