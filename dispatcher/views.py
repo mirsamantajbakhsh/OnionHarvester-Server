@@ -1,6 +1,7 @@
 import datetime
 import json
 import uuid
+import csv
 
 from django.shortcuts import render
 from django.http import HttpResponse
@@ -148,3 +149,15 @@ def result(request):
         'responses': responses,
     }
     return render(request, "response/index.html", context)
+
+
+def download(request):
+    this_download = HttpResponse(content_type='text/csv')
+    this_download['Content-Disposition'] = 'attachment; filename="onion-addresses.csv"'
+    model = Response.objects.all()
+    writer = csv.writer(this_download)
+    writer.writerow(['Address', 'Port', 'CheckTime', 'Time'])
+    for m in model:
+        writer.writerow([m.address, m.port, m.check_time, m.time])
+    return this_download
+
