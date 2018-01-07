@@ -7,6 +7,11 @@ body {
     padding: 10px;
 }
 
+#result{
+    background-color: #fafafa;
+    padding: 10px;
+}
+
 #contribution{
     background-color: #fafafa;
     padding: 10px;
