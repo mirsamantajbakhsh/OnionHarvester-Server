@@ -13,7 +13,7 @@ from decouple import config
 def index(request):
     timeout = config('TIMEOUT', cast=int)
     range_limit = config('RANGE_LIMIT', cast=int)
-    pools = Pool.objects.order_by('-id')[:50]
+    pools = Pool.objects.order_by('-create_time')[:50]
     for p in pools:
         dt = datetime.datetime.now(datetime.timezone.utc) - p.dis_time
         p.days = dt.days
@@ -57,7 +57,7 @@ def generate(request):
     # In minutes
     timeout = config('TIMEOUT', cast=int)
     this_dis_time = datetime.datetime.now(datetime.timezone.utc)
-    last_range = Pool.objects.order_by('-id')
+    last_range = Pool.objects.order_by('-create_time')
     timed_out_range_id = None
     if not last_range:
         address_range = __address_generator(last_address, range_limit)
@@ -69,7 +69,6 @@ def generate(request):
                 'end': timed_out_range[0].address_range_end
             }
             timed_out_range_id = timed_out_range[0].id
-            # client_id = timed_out_range[0].client_id
         else:
             last_address = last_range[0].address_range_end
             address_range = __address_generator(last_address, range_limit)
@@ -116,7 +115,7 @@ def __next_address_generator(last_address):
 
 def __get_timed_out(timeout):
     time_threshold = datetime.datetime.now(datetime.timezone.utc) - datetime.timedelta(minutes=timeout)
-    this_result = Pool.objects.filter(dis_time__lt=time_threshold)
+    this_result = Pool.objects.filter(dis_time__lt=time_threshold).order_by('create_time')
     return this_result
 
 
@@ -133,8 +132,7 @@ def response(request):
         try:
             old_pool = Pool.objects.get(client_id=this_client_id)
             for x in addresses:
-                this_time = datetime.datetime.now(datetime.timezone.utc)
-                Response.objects.create(address=x[0], port=x[1], check_time=x[2], time=this_time)
+                Response.objects.create(address=x[0], port=x[1], check_time=x[2])
             if complete == "true":
                 old_pool.delete()
             this_result = "Thanks for contribution."
@@ -144,7 +142,7 @@ def response(request):
 
 
 def result(request):
-    responses = Response.objects.order_by('-id')[:15]
+    responses = Response.objects.order_by('-save_time')[:15]
     context = {
         'responses': responses,
     }
