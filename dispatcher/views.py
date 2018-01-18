@@ -154,8 +154,8 @@ def download(request):
     this_download['Content-Disposition'] = 'attachment; filename="onion-addresses.csv"'
     model = Response.objects.all()
     writer = csv.writer(this_download)
-    writer.writerow(['Address', 'Port', 'CheckTime', 'Time'])
+    writer.writerow(['Address', 'Port', 'CheckTime', 'SaveTime'])
     for m in model:
-        writer.writerow([m.address, m.port, m.check_time, m.time])
+        writer.writerow([m.address, m.port, m.check_time, m.save_time])
     return this_download
 
