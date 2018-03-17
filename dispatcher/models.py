@@ -19,3 +19,7 @@ class Response(models.Model):
     check_time = models.DateTimeField()
     save_time = models.DateTimeField(default=datetime.now)
 
+
+class Notification(models.Model):
+    content = models.TextField()
+    time = models.DateTimeField(default=datetime.now)
