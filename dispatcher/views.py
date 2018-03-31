@@ -6,7 +6,7 @@ import csv
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
-from dispatcher.models import Pool, Response
+from dispatcher.models import Pool, Response, Notification
 from decouple import config
 
 
@@ -27,9 +27,11 @@ def index(request):
             p.failed = True
             p.color = 'red'
             p.dis_time = "-"
+    notifications = Notification.objects.order_by('-id')[:5]
     statistics = __get_statistics(timeout, range_limit)
     context = {
         'pools': pools,
+        'notifications': notifications,
         'clients': statistics['clients'],
         'address_ranges': statistics['address_ranges'],
         'valid_addresses': statistics['valid_addresses'],
@@ -154,8 +156,8 @@ def download(request):
     this_download['Content-Disposition'] = 'attachment; filename="onion-addresses.csv"'
     model = Response.objects.all()
     writer = csv.writer(this_download)
-    writer.writerow(['Address', 'Port', 'CheckTime', 'Time'])
+    writer.writerow(['Address', 'Port', 'CheckTime', 'SaveTime'])
     for m in model:
-        writer.writerow([m.address, m.port, m.check_time, m.time])
+        writer.writerow([m.address, m.port, m.check_time, m.save_time])
     return this_download
 
